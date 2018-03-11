@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link href="css/chessboard-0.3.0.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/loading-bar.css">
+        
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/chessboard-0.3.0.js"></script>
+        
+        <script src="js/bootstrap.min.js"></script> 
+        <script src="js/chess.js"></script>
+        <script src="js/engine-wrapper.js"></script>
+        <script src="js/board-functions.js"></script>
+        <script src="js/gui-handler.js"></script>
+        <script src="js/loading-bar.js"></script>
+        
+        <title>StockFish Online Analyzer</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+       <body>
+        <div class="container">
+            <div class="row">
+                <select id="turn">
+                    <option value="0">White</option>
+                    <option value="1">Black</option>
+                </select>
+                <div class="col-md-6" style="text-align: center">
+                    <div id="board" style="width: 400px"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table" cellspacing="2">
+                          <tbody id='moves_table'>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <textArea id="analysisBox"></textArea>
+                <input type="button" id="analysePosition" value="Analyse Position" />
+                <input type="button" id="nextMove" value="=>" />    
+                <input type="button" id="backMove" value="<=" />    
+                <div id="myItem1" style="width:50%;height:50%;" 
+                     data-type="stroke"
+                     data-path="M10 10L90 10"
+                      data-stroke="red"
+                      data-stroke-trail="black"
+                      data-stroke-trail-width="4"
+                     ></div>
+                <script>
+                    var ENGINE = new ChessEngine('js/stockfish.js');
+                    ENGINE.newGame();
+                    var GAME = new Chess();
+                    var BOARD = new ChessBoard('board',BOARD_CONFIG);
+                    $('#analysePosition').on('click', analysePosition);
+                    $('#nextMove').on('click', nextMove);
+                    $('#backMove').on('click', backMove);
+                    var bar1 = new ldBar("#myItem1");
+                    bar1.set(50);
+                </script>
+            </div>
+        </div>
+    </body>
+</html>
